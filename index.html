@@ -1,93 +1,686 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiema.io | The Neural Link for the Industrial Edge</title>
+    <title>Tiema - 工业边缘网关和软PLC平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --text-color: #333;
+            --text-light: #777;
+            --spacing-sm: 10px;
+            --spacing-md: 20px;
+            --spacing-lg: 40px;
+            --border-radius: 8px;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
-            background-color: #0a0a0c;
-            color: #e0e0e0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            overflow-x: hidden;
+            box-sizing: border-box;
         }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+        
         .container {
-            max-width: 800px;
-            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+        
+        /* 导航栏 */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: var(--secondary-color);
+            margin-right: var(--spacing-sm);
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: var(--spacing-lg);
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .language-switcher {
+            margin-left: var(--spacing-md);
+        }
+        
+        .lang-btn {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .lang-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            padding: var(--spacing-lg) 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: var(--spacing-lg);
+        }
+        
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
             text-align: center;
         }
-        .logo {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, #0078d4, #00f2fe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary-color);
+            line-height: 1.2;
         }
-        .tagline {
+        
+        .hero h1 span {
+            color: var(--accent-color);
+        }
+        
+        .hero p {
             font-size: 1.2rem;
-            color: #888;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-light);
         }
-        .manifesto {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 30px;
-            line-height: 1.6;
-            text-align: left;
-            margin-bottom: 40px;
-        }
-        .manifesto h2 { color: #0078d4; margin-top: 0; }
+        
         .cta-button {
             display: inline-block;
-            padding: 12px 30px;
-            background-color: #0078d4;
+            background-color: var(--secondary-color);
             color: white;
+            padding: 12px 30px;
+            border-radius: var(--border-radius);
             text-decoration: none;
-            border-radius: 6px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
         }
+        
         .cta-button:hover {
-            background-color: #005a9e;
-            box-shadow: 0 0 20px rgba(0, 120, 212, 0.5);
-            transform: translateY(-2px);
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(41, 128, 185, 0.3);
         }
-        .footer {
-            margin-top: 60px;
-            font-size: 0.8rem;
-            color: #444;
+        
+        .bike-icon {
+            font-size: 10rem;
+            color: var(--secondary-color);
+            opacity: 0.8;
+        }
+        
+        /* 品牌故事部分 */
+        .story {
+            padding: var(--spacing-lg) 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            color: var(--primary-color);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .story-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: var(--spacing-lg);
+        }
+        
+        .story-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: var(--spacing-lg);
+        }
+        
+        .story-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .story-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .quote {
+            font-style: italic;
+            padding: var(--spacing-md);
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            margin: var(--spacing-md) 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        /* 产品特性部分 */
+        .features {
+            padding: var(--spacing-lg) 0;
+            background-color: #f8f9fa;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .feature-card h3 {
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary-color);
+        }
+        
+        /* 架构部分 */
+        .architecture {
+            padding: var(--spacing-lg) 0;
+            background-color: white;
+        }
+        
+        .architecture-diagram {
+            text-align: center;
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .diagram-container {
+            display: inline-block;
+            position: relative;
+            max-width: 100%;
+        }
+        
+        .diagram-node {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            margin: 10px;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+        }
+        
+        .diagram-node.engine {
+            background-color: var(--accent-color);
+        }
+        
+        .diagram-node.plugin {
+            background-color: var(--secondary-color);
+        }
+        
+        .diagram-node.sdk {
+            background-color: var(--success-color);
+        }
+        
+        /* 生态系统部分 */
+        .ecosystem {
+            padding: var(--spacing-lg) 0;
+            background-color: #f8f9fa;
+        }
+        
+        .marketplace {
+            text-align: center;
+            margin-top: var(--spacing-lg);
+        }
+        
+        .marketplace-icon {
+            font-size: 5rem;
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-lg) 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .footer-links li {
+            margin: 0 var(--spacing-md);
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: var(--spacing-md);
+        }
+        
+        /* 语言切换样式 */
+        .lang-en {
+            display: none;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-content, .story-content {
+                flex-direction: column;
+            }
+            
+            .hero-text, .story-text {
+                padding-right: 0;
+                margin-bottom: var(--spacing-lg);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">Tiema.io</div>
-        <div class="tagline">The Neural Link for the Industrial Edge</div>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-bolt"></i>
+                    <span>Tiema</span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#story" class="lang-zh">品牌故事</a><a href="#story" class="lang-en">Our Story</a></li>
+                    <li><a href="#features" class="lang-zh">核心特性</a><a href="#features" class="lang-en">Features</a></li>
+                    <li><a href="#architecture" class="lang-zh">架构</a><a href="#architecture" class="lang-en">Architecture</a></li>
+                    <li><a href="#ecosystem" class="lang-zh">生态系统</a><a href="#ecosystem" class="lang-en">Ecosystem</a></li>
+                </ul>
+                
+                <div class="language-switcher">
+                    <button class="lang-btn active" id="zh-btn">中文</button>
+                    <button class="lang-btn" id="en-btn">English</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="lang-zh">连接物理与数字世界的<br><span>工业边缘网关</span></h1>
+                    <h1 class="lang-en">Bridging the Physical and Digital Worlds:<br><span>Industrial Edge Gateway</span></h1>
+                    
+                    <p class="lang-zh">Tiema 是一款面向2026时代的领域专用软PLC和工业边缘网关，专为连接物理世界（硬件）与数字世界（WMS/ERP/AI）而设计。</p>
+                    <p class="lang-en">Tiema is a Domain-Specific Soft-PLC and Industrial Edge Gateway designed for the 2026 era, bridging the gap between the physical world (Hardware) and the digital world (WMS/ERP/AI).</p>
+                    
+                    <a href="#story" class="cta-button lang-zh">了解我们的故事</a>
+                    <a href="#story" class="cta-button lang-en">Discover Our Story</a>
+                </div>
+                
+                <div class="hero-image">
+                    <i class="fas fa-bicycle bike-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 品牌故事 -->
+    <section class="story" id="story">
+        <div class="container">
+            <h2 class="section-title lang-zh">我们的故事：从寿卡铁马驿站到工业软件</h2>
+            <h2 class="section-title lang-en">Our Story: From Shouka Cycling Station to Industrial Software</h2>
+            
+            <div class="story-content">
+                <div class="story-text">
+                    <p class="lang-zh">Tiema 的名字来源于台湾环岛骑行圣地——<strong>寿卡铁马驿站</strong>。那是旅程中最漫长爬坡的顶点，抵达时精疲力尽，却也心潮澎湃。它象征着坚持、挑战与阶段性胜利。</p>
+                    <p class="lang-en">The name "Tiema" originates from the iconic Taiwanese cycling landmark - <strong>Shouka Tiema (Cycling) Station</strong>. It sits at the summit of the longest climb, where exhausted riders find respite and triumph. It symbolizes perseverance, challenge, and milestone achievement.</p>
+                    
+                    <div class="quote lang-zh">
+                        <p>"在台湾环岛骑行中，寿卡驿站是最艰难爬坡的终点，也是通往美丽海岸线的起点。它代表着坚韧、毅力和抵达关键里程碑的成就感。"</p>
+                    </div>
+                    <div class="quote lang-en">
+                        <p>"In the Taiwan cycling journey, Shouka Station marks the end of the toughest climb and the beginning of the scenic coastal descent. It represents resilience, perseverance, and the satisfaction of reaching a critical milestone."</p>
+                    </div>
+                    
+                    <p class="lang-zh">我们打造 Tiema 平台，正是希望成为您数字旅程中的那个<strong>关键驿站</strong>——在您攻克最复杂的工业项目、管理最繁重的自动化任务时，为您提供强大支撑和清晰视野，助您成功抵达每一个里程碑。</p>
+                    <p class="lang-en">We created Tiema to be that <strong>critical station</strong> in your digital journey—providing robust support and clear vision as you tackle complex industrial projects and manage demanding automation tasks, helping you reach every milestone successfully.</p>
+                </div>
+                
+                <div class="story-image">
+                    <img src="https://images.unsplash.com/photo-1541625602330-2277a4c46182?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cycling journey">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 核心特性 -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title lang-zh">✨ 核心特性</h2>
+            <h2 class="section-title lang-en">✨ Core Features</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="lang-zh">进程隔离 (稳定性优先)</h3>
+                    <h3 class="lang-en">Process Isolation (Stability First)</h3>
+                    <p class="lang-zh">每个插件在独立进程中运行。即使一个插件崩溃，引擎依然保持运行。</p>
+                    <p class="lang-en">Every plugin runs in its own process. If one fails, the engine stays alive.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <h3 class="lang-zh">协议驱动 (gRPC over IPC)</h3>
+                    <h3 class="lang-en">Protocol-Driven (gRPC over IPC)</h3>
+                    <p class="lang-zh">通过高性能 gRPC（命名管道/Unix 套接字）实现统一通信。</p>
+                    <p class="lang-en">Unified communication via high-performance gRPC (Named Pipes / Unix Sockets).</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-road"></i>
+                    </div>
+                    <h3 class="lang-zh">单一路径架构</h3>
+                    <h3 class="lang-en">Single Path Architecture</h3>
+                    <p class="lang-zh">"内部"与"外部"插件之间没有差异。</p>
+                    <p class="lang-en">No difference between "internal" and "external" plugins.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="lang-zh">统一机器人平面</h3>
+                    <h3 class="lang-en">Unified Robot Plane</h3>
+                    <p class="lang-zh">控制机械臂、AGV和AMR的标准方法。</p>
+                    <p class="lang-en">A standard way to control Robot Arms, AGVs, and AMRs.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="lang-zh">C# 开发者体验</h3>
+                    <h3 class="lang-en">C# Developer Experience</h3>
+                    <p class="lang-zh">使用您喜欢的 .NET 工具构建、调试和部署工业插件。</p>
+                    <p class="lang-en">Build, debug, and deploy industrial plugins using your favorite .NET tools.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3 class="lang-zh">模块化设计</h3>
+                    <h3 class="lang-en">Modular Design</h3>
+                    <p class="lang-zh">灵活扩展，适应各种工业场景和需求。</p>
+                    <p class="lang-en">Flexible expansion to adapt to various industrial scenarios and requirements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 架构 -->
+    <section class="architecture" id="architecture">
+        <div class="container">
+            <h2 class="section-title lang-zh">🏗 系统架构</h2>
+            <h2 class="section-title lang-en">🏗 Architecture</h2>
+            
+            <div class="architecture-diagram">
+                <div class="diagram-container">
+                    <div class="diagram-node engine">Tiema.Engine</div>
+                    <div style="margin: 20px; font-size: 1.5rem;">↓</div>
+                    <div class="diagram-node plugin">Tiema.PluginHost</div>
+                    <div style="margin: 20px; font-size: 1.5rem;">↓</div>
+                    <div class="diagram-node sdk">Tiema.Plugin.Sdk</div>
+                </div>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3 class="lang-zh">Tiema.Engine</h3>
+                    <h3 class="lang-en">Tiema.Engine</h3>
+                    <p class="lang-zh">主监督器和数据背板，协调所有插件和系统资源。</p>
+                    <p class="lang-en">The master supervisor and data backplane, coordinating all plugins and system resources.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3 class="lang-zh">Tiema.PluginHost</h3>
+                    <h3 class="lang-en">Tiema.PluginHost</h3>
+                    <p class="lang-zh">用于插件执行的超轻量工作进程，确保隔离和稳定性。</p>
+                    <p class="lang-en">The ultra-light worker process for plugin execution, ensuring isolation and stability.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3 class="lang-zh">Tiema.Plugin.Sdk</h3>
+                    <h3 class="lang-en">Tiema.Plugin.Sdk</h3>
+                    <p class="lang-zh">全球开发者的轻量级合约，简化插件开发流程。</p>
+                    <p class="lang-en">The lightweight contract for global developers, simplifying plugin development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 生态系统 -->
+    <section class="ecosystem" id="ecosystem">
+        <div class="container">
+            <h2 class="section-title lang-zh">💰 加入生态系统</h2>
+            <h2 class="section-title lang-en">💰 Join the Ecosystem</h2>
+            
+            <div class="marketplace">
+                <div class="marketplace-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                
+                <h3 class="lang-zh">不仅仅是引擎，更是一个市场</h3>
+                <h3 class="lang-en">More than an engine; it's a Marketplace</h3>
+                
+                <p class="lang-zh" style="max-width: 800px; margin: 0 auto var(--spacing-lg);">
+                    Tiema 不仅是一个工业软件引擎，更是一个全球化的市场平台。开发者可以在我们的平台上构建、分享工业插件，并通过他们的专业知识实现商业化。
+                </p>
+                <p class="lang-en" style="max-width: 800px; margin: 0 auto var(--spacing-lg);">
+                    Tiema is more than an engine; it's a Marketplace. Developers can build, share, and monetize their industrial plugins on our global platform.
+                </p>
+                
+                <a href="#" class="cta-button lang-zh">探索市场</a>
+                <a href="#" class="cta-button lang-en">Explore Marketplace</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <a href="#" class="logo" style="color: white; margin-bottom: var(--spacing-md);">
+                <i class="fas fa-bolt"></i>
+                <span>Tiema</span>
+            </a>
+            
+            <ul class="footer-links">
+                <li><a href="#" class="lang-zh">GitHub</a><a href="#" class="lang-en">GitHub</a></li>
+                <li><a href="#" class="lang-zh">文档</a><a href="#" class="lang-en">Documentation</a></li>
+                <li><a href="#" class="lang-zh">博客</a><a href="#" class="lang-en">Blog</a></li>
+                <li><a href="#" class="lang-zh">联系我们</a><a href="#" class="lang-en">Contact</a></li>
+            </ul>
+            
+            <p class="copyright lang-zh">© 2023 Tiema.io | 连接物理与数字世界的工业边缘网关</p>
+            <p class="copyright lang-en">© 2023 Tiema.io | Industrial Edge Gateway Bridging Physical and Digital Worlds</p>
+        </div>
+    </footer>
+    
+    <script>
+        // 语言切换功能
+        document.getElementById('zh-btn').addEventListener('click', function() {
+            setLanguage('zh');
+        });
         
-        <div class="manifesto">
-            <h2>Bridge the Gap</h2>
-            <p>Tiema is a next-generation Industrial Edge Engine designed for the 2026 era. Built on <strong>.NET & gRPC</strong>, we provide a process-isolated, protocol-first platform for modern automation.</p>
-            <p>From Tag streaming to unified Robot control, Tiema empowers developers to build, deploy, and monetize industrial plugins globally.</p>
-        </div>
-
-        <a href="https://github.com" class="cta-button">View on GitHub</a>
-
-        <div class="footer">
-            &copy; 2026 Tiema Project. All rights reserved. <br>
-            Powered by GitHub Pages. Securely served via tiema.io
-        </div>
-    </div>
+        document.getElementById('en-btn').addEventListener('click', function() {
+            setLanguage('en');
+        });
+        
+        function setLanguage(lang) {
+            // 更新按钮状态
+            document.getElementById('zh-btn').classList.toggle('active', lang === 'zh');
+            document.getElementById('en-btn').classList.toggle('active', lang === 'en');
+            
+            // 显示/隐藏对应语言的内容
+            const zhElements = document.querySelectorAll('.lang-zh');
+            const enElements = document.querySelectorAll('.lang-en');
+            
+            if (lang === 'zh') {
+                zhElements.forEach(el => el.style.display = 'block');
+                enElements.forEach(el => el.style.display = 'none');
+            } else {
+                zhElements.forEach(el => el.style.display = 'none');
+                enElements.forEach(el => el.style.display = 'block');
+            }
+        }
+        
+        // 初始化语言
+        setLanguage('zh');
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
