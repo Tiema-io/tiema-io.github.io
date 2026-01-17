@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiema - 工业边缘网关和软PLC平台</title>
+    <title>Tiema - 工业边缘网关和软PLC平台 (开发中)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -13,6 +13,7 @@
             --light-color: #ecf0f1;
             --dark-color: #2c3e50;
             --success-color: #27ae60;
+            --warning-color: #f39c12;
             --text-color: #333;
             --text-light: #777;
             --spacing-sm: 10px;
@@ -42,12 +43,25 @@
             padding: 0 var(--spacing-md);
         }
         
+        /* 开发中横幅 */
+        .dev-banner {
+            background-color: var(--warning-color);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
         /* 导航栏 */
         header {
             background-color: white;
             box-shadow: var(--shadow);
             position: sticky;
-            top: 0;
+            top: 40px;
             z-index: 1000;
         }
         
@@ -179,6 +193,18 @@
             box-shadow: 0 7px 15px rgba(41, 128, 185, 0.3);
         }
         
+        .cta-button.secondary {
+            background-color: transparent;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+            margin-left: 15px;
+        }
+        
+        .cta-button.secondary:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
         .bike-icon {
             font-size: 10rem;
             color: var(--secondary-color);
@@ -244,6 +270,11 @@
             border-radius: 0 var(--border-radius) var(--border-radius) 0;
         }
         
+        .story-highlight {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+        
         /* 产品特性部分 */
         .features {
             padding: var(--spacing-lg) 0;
@@ -263,11 +294,26 @@
             padding: var(--spacing-md);
             box-shadow: var(--shadow);
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-card.developing:before {
+            content: '开发中';
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background-color: var(--warning-color);
+            color: white;
+            padding: 3px 35px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 600;
         }
         
         .feature-icon {
@@ -307,6 +353,21 @@
             margin: 10px;
             font-weight: 600;
             box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .diagram-node:after {
+            content: '开发中';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--warning-color);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            white-space: nowrap;
         }
         
         .diagram-node.engine {
@@ -336,6 +397,92 @@
             font-size: 5rem;
             color: var(--secondary-color);
             margin-bottom: var(--spacing-md);
+        }
+        
+        .coming-soon-badge {
+            display: inline-block;
+            background-color: var(--warning-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        /* 开发时间线部分 */
+        .timeline {
+            padding: var(--spacing-lg) 0;
+            background-color: white;
+        }
+        
+        .timeline-container {
+            max-width: 800px;
+            margin: var(--spacing-lg) auto;
+            position: relative;
+        }
+        
+        .timeline-container:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background-color: var(--secondary-color);
+        }
+        
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-content {
+            width: 45%;
+            background-color: white;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .timeline-content:after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            transform: rotate(45deg);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content:after {
+            right: -10px;
+            box-shadow: 3px -3px 5px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content:after {
+            left: -10px;
+            box-shadow: -3px 3px 5px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            border: 4px solid white;
+            z-index: 1;
         }
         
         /* 页脚 */
@@ -373,6 +520,30 @@
             margin-top: var(--spacing-md);
         }
         
+        /* GitHub链接 */
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: var(--spacing-md);
+            transition: var(--transition);
+        }
+        
+        .github-link:hover {
+            background-color: #444;
+            transform: translateY(-3px);
+        }
+        
+        .github-link i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
         /* 语言切换样式 */
         .lang-en {
             display: none;
@@ -396,10 +567,39 @@
             .hero h1 {
                 font-size: 2.2rem;
             }
+            
+            .timeline-container:before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                flex-direction: column !important;
+                align-items: flex-start;
+            }
+            
+            .timeline-content {
+                width: 100%;
+                margin-left: 40px;
+                margin-top: 10px;
+            }
+            
+            .timeline-content:after {
+                display: none;
+            }
+            
+            .timeline-dot {
+                left: 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- 开发中横幅 -->
+    <div class="dev-banner">
+        <span class="lang-zh">🚧 Tiema 平台正在积极开发中，预计2024年发布测试版</span>
+        <span class="lang-en">🚧 Tiema Platform is actively under development, beta expected in 2024</span>
+    </div>
+    
     <!-- 导航栏 -->
     <header>
         <div class="container">
@@ -413,6 +613,7 @@
                     <li><a href="#story" class="lang-zh">品牌故事</a><a href="#story" class="lang-en">Our Story</a></li>
                     <li><a href="#features" class="lang-zh">核心特性</a><a href="#features" class="lang-en">Features</a></li>
                     <li><a href="#architecture" class="lang-zh">架构</a><a href="#architecture" class="lang-en">Architecture</a></li>
+                    <li><a href="#timeline" class="lang-zh">开发路线</a><a href="#timeline" class="lang-en">Roadmap</a></li>
                     <li><a href="#ecosystem" class="lang-zh">生态系统</a><a href="#ecosystem" class="lang-en">Ecosystem</a></li>
                 </ul>
                 
@@ -429,14 +630,25 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1 class="lang-zh">连接物理与数字世界的<br><span>工业边缘网关</span></h1>
-                    <h1 class="lang-en">Bridging the Physical and Digital Worlds:<br><span>Industrial Edge Gateway</span></h1>
+                    <h1 class="lang-zh">连接物理与数字世界的<br><span>工业边缘网关</span> (开发中)</h1>
+                    <h1 class="lang-en">Bridging Physical and Digital Worlds:<br><span>Industrial Edge Gateway</span> (In Development)</h1>
                     
-                    <p class="lang-zh">Tiema 是一款面向2026时代的领域专用软PLC和工业边缘网关，专为连接物理世界（硬件）与数字世界（WMS/ERP/AI）而设计。</p>
-                    <p class="lang-en">Tiema is a Domain-Specific Soft-PLC and Industrial Edge Gateway designed for the 2026 era, bridging the gap between the physical world (Hardware) and the digital world (WMS/ERP/AI).</p>
+                    <p class="lang-zh">Tiema 是一款面向2026时代的领域专用软PLC和工业边缘网关，专为连接物理世界（硬件）与数字世界（WMS/ERP/AI）而设计。目前正在积极开发中。</p>
+                    <p class="lang-en">Tiema is a Domain-Specific Soft-PLC and Industrial Edge Gateway designed for the 2026 era, bridging the gap between the physical world (Hardware) and the digital world (WMS/ERP/AI). Currently under active development.</p>
                     
-                    <a href="#story" class="cta-button lang-zh">了解我们的故事</a>
-                    <a href="#story" class="cta-button lang-en">Discover Our Story</a>
+                    <div style="margin-bottom: var(--spacing-md);">
+                        <a href="#story" class="cta-button lang-zh">了解我们的故事</a>
+                        <a href="#story" class="cta-button lang-en">Discover Our Story</a>
+                        
+                        <a href="#timeline" class="cta-button secondary lang-zh">查看开发路线</a>
+                        <a href="#timeline" class="cta-button secondary lang-en">View Roadmap</a>
+                    </div>
+                    
+                    <a href="https://github.com" target="_blank" class="github-link">
+                        <i class="fab fa-github"></i>
+                        <span class="lang-zh">在GitHub上关注开发进度</span>
+                        <span class="lang-en">Follow Development on GitHub</span>
+                    </a>
                 </div>
                 
                 <div class="hero-image">
@@ -449,23 +661,23 @@
     <!-- 品牌故事 -->
     <section class="story" id="story">
         <div class="container">
-            <h2 class="section-title lang-zh">我们的故事：从寿卡铁马驿站到工业软件</h2>
-            <h2 class="section-title lang-en">Our Story: From Shouka Cycling Station to Industrial Software</h2>
+            <h2 class="section-title lang-zh">我们的故事：从寿卡Tiema驿站到工业软件</h2>
+            <h2 class="section-title lang-en">Our Story: From Shouka Tiema Station to Industrial Software</h2>
             
             <div class="story-content">
                 <div class="story-text">
-                    <p class="lang-zh">Tiema 的名字来源于台湾环岛骑行圣地——<strong>寿卡铁马驿站</strong>。那是旅程中最漫长爬坡的顶点，抵达时精疲力尽，却也心潮澎湃。它象征着坚持、挑战与阶段性胜利。</p>
-                    <p class="lang-en">The name "Tiema" originates from the iconic Taiwanese cycling landmark - <strong>Shouka Tiema (Cycling) Station</strong>. It sits at the summit of the longest climb, where exhausted riders find respite and triumph. It symbolizes perseverance, challenge, and milestone achievement.</p>
+                    <p class="lang-zh">Tiema 的名字来源于台湾环岛骑行圣地——<strong class="story-highlight">寿卡Tiema驿站</strong>（原名寿卡铁马驿站）。"铁马"是中文对自行车的雅称，而"Tiema"正是其拼音。那是旅程中最漫长爬坡的顶点，抵达时精疲力尽，却也心潮澎湃。它象征着坚持、挑战与阶段性胜利。</p>
+                    <p class="lang-en">The name "Tiema" originates from the iconic Taiwanese cycling landmark - <strong class="story-highlight">Shouka Tiema Station</strong> (formerly Shouka Cycling Station). "Tie Ma" is the elegant Chinese term for bicycle, and "Tiema" is its pinyin. It sits at the summit of the longest climb, where exhausted riders find respite and triumph. It symbolizes perseverance, challenge, and milestone achievement.</p>
                     
                     <div class="quote lang-zh">
-                        <p>"在台湾环岛骑行中，寿卡驿站是最艰难爬坡的终点，也是通往美丽海岸线的起点。它代表着坚韧、毅力和抵达关键里程碑的成就感。"</p>
+                        <p>"在台湾环岛骑行中，<strong>寿卡Tiema驿站</strong>是最艰难爬坡的终点，也是通往美丽海岸线的起点。它代表着坚韧、毅力和抵达关键里程碑的成就感。"</p>
                     </div>
                     <div class="quote lang-en">
-                        <p>"In the Taiwan cycling journey, Shouka Station marks the end of the toughest climb and the beginning of the scenic coastal descent. It represents resilience, perseverance, and the satisfaction of reaching a critical milestone."</p>
+                        <p>"In the Taiwan cycling journey, <strong>Shouka Tiema Station</strong> marks the end of the toughest climb and the beginning of the scenic coastal descent. It represents resilience, perseverance, and the satisfaction of reaching a critical milestone."</p>
                     </div>
                     
-                    <p class="lang-zh">我们打造 Tiema 平台，正是希望成为您数字旅程中的那个<strong>关键驿站</strong>——在您攻克最复杂的工业项目、管理最繁重的自动化任务时，为您提供强大支撑和清晰视野，助您成功抵达每一个里程碑。</p>
-                    <p class="lang-en">We created Tiema to be that <strong>critical station</strong> in your digital journey—providing robust support and clear vision as you tackle complex industrial projects and manage demanding automation tasks, helping you reach every milestone successfully.</p>
+                    <p class="lang-zh">我们正在打造的 Tiema 平台，正是希望成为您数字旅程中的那个<strong>关键驿站</strong>——在您攻克最复杂的工业项目、管理最繁重的自动化任务时，为您提供强大支撑和清晰视野，助您成功抵达每一个里程碑。</p>
+                    <p class="lang-en">The Tiema platform we're building aims to be that <strong>critical station</strong> in your digital journey—providing robust support and clear vision as you tackle complex industrial projects and manage demanding automation tasks, helping you reach every milestone successfully.</p>
                 </div>
                 
                 <div class="story-image">
@@ -478,11 +690,18 @@
     <!-- 核心特性 -->
     <section class="features" id="features">
         <div class="container">
-            <h2 class="section-title lang-zh">✨ 核心特性</h2>
-            <h2 class="section-title lang-en">✨ Core Features</h2>
+            <h2 class="section-title lang-zh">✨ 规划中的核心特性</h2>
+            <h2 class="section-title lang-en">✨ Planned Core Features</h2>
+            
+            <p class="lang-zh" style="text-align: center; margin-bottom: var(--spacing-lg); max-width: 800px; margin-left: auto; margin-right: auto;">
+                以下是我们正在为Tiema平台开发的核心特性。这些功能正在积极设计和实现中。
+            </p>
+            <p class="lang-en" style="text-align: center; margin-bottom: var(--spacing-lg); max-width: 800px; margin-left: auto; margin-right: auto;">
+                The following are the core features we're developing for the Tiema platform. These functionalities are currently in active design and implementation.
+            </p>
             
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card developing">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
@@ -492,7 +711,7 @@
                     <p class="lang-en">Every plugin runs in its own process. If one fails, the engine stays alive.</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card developing">
                     <div class="feature-icon">
                         <i class="fas fa-broadcast-tower"></i>
                     </div>
@@ -502,7 +721,7 @@
                     <p class="lang-en">Unified communication via high-performance gRPC (Named Pipes / Unix Sockets).</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card developing">
                     <div class="feature-icon">
                         <i class="fas fa-road"></i>
                     </div>
@@ -512,7 +731,7 @@
                     <p class="lang-en">No difference between "internal" and "external" plugins.</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card developing">
                     <div class="feature-icon">
                         <i class="fas fa-robot"></i>
                     </div>
@@ -522,7 +741,7 @@
                     <p class="lang-en">A standard way to control Robot Arms, AGVs, and AMRs.</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card developing">
                     <div class="feature-icon">
                         <i class="fas fa-code"></i>
                     </div>
@@ -532,7 +751,7 @@
                     <p class="lang-en">Build, debug, and deploy industrial plugins using your favorite .NET tools.</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card developing">
                     <div class="feature-icon">
                         <i class="fas fa-puzzle-piece"></i>
                     </div>
@@ -548,8 +767,15 @@
     <!-- 架构 -->
     <section class="architecture" id="architecture">
         <div class="container">
-            <h2 class="section-title lang-zh">🏗 系统架构</h2>
-            <h2 class="section-title lang-en">🏗 Architecture</h2>
+            <h2 class="section-title lang-zh">🏗 系统架构 (开发中)</h2>
+            <h2 class="section-title lang-en">🏗 Architecture (In Development)</h2>
+            
+            <p class="lang-zh" style="text-align: center; margin-bottom: var(--spacing-lg); max-width: 800px; margin-left: auto; margin-right: auto;">
+                Tiema平台采用三层架构设计，确保稳定性、可扩展性和开发者友好性。
+            </p>
+            <p class="lang-en" style="text-align: center; margin-bottom: var(--spacing-lg); max-width: 800px; margin-left: auto; margin-right: auto;">
+                The Tiema platform employs a three-tier architecture designed for stability, scalability, and developer friendliness.
+            </p>
             
             <div class="architecture-diagram">
                 <div class="diagram-container">
@@ -562,21 +788,21 @@
             </div>
             
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card developing">
                     <h3 class="lang-zh">Tiema.Engine</h3>
                     <h3 class="lang-en">Tiema.Engine</h3>
                     <p class="lang-zh">主监督器和数据背板，协调所有插件和系统资源。</p>
                     <p class="lang-en">The master supervisor and data backplane, coordinating all plugins and system resources.</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card developing">
                     <h3 class="lang-zh">Tiema.PluginHost</h3>
                     <h3 class="lang-en">Tiema.PluginHost</h3>
                     <p class="lang-zh">用于插件执行的超轻量工作进程，确保隔离和稳定性。</p>
                     <p class="lang-en">The ultra-light worker process for plugin execution, ensuring isolation and stability.</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card developing">
                     <h3 class="lang-zh">Tiema.Plugin.Sdk</h3>
                     <h3 class="lang-en">Tiema.Plugin.Sdk</h3>
                     <p class="lang-zh">全球开发者的轻量级合约，简化插件开发流程。</p>
@@ -586,13 +812,78 @@
         </div>
     </section>
     
+    <!-- 开发时间线 -->
+    <section class="timeline" id="timeline">
+        <div class="container">
+            <h2 class="section-title lang-zh">🗓 开发路线图</h2>
+            <h2 class="section-title lang-en">🗓 Development Roadmap</h2>
+            
+            <div class="timeline-container">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="lang-zh">2026年第一季度</h3>
+                        <h3 class="lang-en">Q1 2026</h3>
+                        <p class="lang-zh">• 核心架构设计与原型验证</p>
+                        <p class="lang-en">• Core architecture design and prototype validation</p>
+                        <p class="lang-zh">• Tiema.Plugin.Sdk 基础合约定义</p>
+                        <p class="lang-en">• Tiema.Plugin.Sdk basic contract definition</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div style="width: 45%;"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div style="width: 45%;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 class="lang-zh">2026年第二季度</h3>
+                        <h3 class="lang-en">Q2 2026</h3>
+                        <p class="lang-zh">• Tiema.Engine 核心实现</p>
+                        <p class="lang-en">• Tiema.Engine core implementation</p>
+                        <p class="lang-zh">• 基础插件通信机制</p>
+                        <p class="lang-en">• Basic plugin communication mechanism</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="lang-zh">2026年第三季度</h3>
+                        <h3 class="lang-en">Q3 2026</h3>
+                        <p class="lang-zh">• Tiema.PluginHost 实现与优化</p>
+                        <p class="lang-en">• Tiema.PluginHost implementation and optimization</p>
+                        <p class="lang-zh">• 开发者工具链初步版本</p>
+                        <p class="lang-en">• Initial version of developer toolchain</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div style="width: 45%;"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div style="width: 45%;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 class="lang-zh">2026年第四季度</h3>
+                        <h3 class="lang-en">Q4 2026</h3>
+                        <p class="lang-zh">• 封闭测试版发布</p>
+                        <p class="lang-en">• Closed beta release</p>
+                        <p class="lang-zh">• 早期合作伙伴集成</p>
+                        <p class="lang-en">• Early partner integration</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <!-- 生态系统 -->
     <section class="ecosystem" id="ecosystem">
         <div class="container">
-            <h2 class="section-title lang-zh">💰 加入生态系统</h2>
-            <h2 class="section-title lang-en">💰 Join the Ecosystem</h2>
+            <h2 class="section-title lang-zh">💰 未来生态系统</h2>
+            <h2 class="section-title lang-en">💰 Future Ecosystem</h2>
             
             <div class="marketplace">
+                <div class="coming-soon-badge lang-zh">计划中</div>
+                <div class="coming-soon-badge lang-en">Planned</div>
+                
                 <div class="marketplace-icon">
                     <i class="fas fa-store"></i>
                 </div>
@@ -601,14 +892,18 @@
                 <h3 class="lang-en">More than an engine; it's a Marketplace</h3>
                 
                 <p class="lang-zh" style="max-width: 800px; margin: 0 auto var(--spacing-lg);">
-                    Tiema 不仅是一个工业软件引擎，更是一个全球化的市场平台。开发者可以在我们的平台上构建、分享工业插件，并通过他们的专业知识实现商业化。
+                    Tiema 不仅是一个工业软件引擎，更计划成为一个全球化的市场平台。开发者将能够在我们的平台上构建、分享工业插件，并通过他们的专业知识实现商业化。
                 </p>
                 <p class="lang-en" style="max-width: 800px; margin: 0 auto var(--spacing-lg);">
-                    Tiema is more than an engine; it's a Marketplace. Developers can build, share, and monetize their industrial plugins on our global platform.
+                    Tiema aims to be more than an engine; it's planned as a Marketplace. Developers will be able to build, share, and monetize their industrial plugins on our global platform.
                 </p>
                 
-                <a href="#" class="cta-button lang-zh">探索市场</a>
-                <a href="#" class="cta-button lang-en">Explore Marketplace</a>
+                <div class="lang-zh" style="color: var(--text-light); font-style: italic; margin-top: var(--spacing-md);">
+                    生态系统功能将在核心平台稳定后开始开发
+                </div>
+                <div class="lang-en" style="color: var(--text-light); font-style: italic; margin-top: var(--spacing-md);">
+                    Ecosystem features will begin development after the core platform stabilizes
+                </div>
             </div>
         </div>
     </section>
@@ -623,13 +918,13 @@
             
             <ul class="footer-links">
                 <li><a href="#" class="lang-zh">GitHub</a><a href="#" class="lang-en">GitHub</a></li>
-                <li><a href="#" class="lang-zh">文档</a><a href="#" class="lang-en">Documentation</a></li>
-                <li><a href="#" class="lang-zh">博客</a><a href="#" class="lang-en">Blog</a></li>
+                <li><a href="#" class="lang-zh">文档 (即将推出)</a><a href="#" class="lang-en">Docs (Coming Soon)</a></li>
+                <li><a href="#" class="lang-zh">博客 (即将推出)</a><a href="#" class="lang-en">Blog (Coming Soon)</a></li>
                 <li><a href="#" class="lang-zh">联系我们</a><a href="#" class="lang-en">Contact</a></li>
             </ul>
             
-            <p class="copyright lang-zh">© 2023 Tiema.io | 连接物理与数字世界的工业边缘网关</p>
-            <p class="copyright lang-en">© 2023 Tiema.io | Industrial Edge Gateway Bridging Physical and Digital Worlds</p>
+            <p class="copyright lang-zh">© 2023 Tiema.io | 连接物理与数字世界的工业边缘网关 (开发中)</p>
+            <p class="copyright lang-en">© 2023 Tiema.io | Industrial Edge Gateway Bridging Physical and Digital Worlds (In Development)</p>
         </div>
     </footer>
     
@@ -675,7 +970,7 @@
                 const targetElement = document.querySelector(targetId);
                 if(targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 100,
                         behavior: 'smooth'
                     });
                 }
